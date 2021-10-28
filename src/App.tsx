@@ -1,6 +1,6 @@
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import { Topbar } from "./components/common";
-import { Home, Quiz } from "./components/pages";
+import { Home, Quiz, Results } from "./components/pages";
 
 function App() {
   return (
@@ -14,6 +14,9 @@ function App() {
             </Route>
             <Route path="/quiz/:category/:amount">
               <Quiz />
+            </Route>
+            <Route path="/results/:score/:total_qn">
+              <Results />
             </Route>
           </Switch>
         </BrowserRouter>

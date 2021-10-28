@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import { QuizCard } from ".";
 import { QuizData } from "../../hooks/useAxiosQuiz";
 import { Button } from "../UI";
@@ -12,6 +13,8 @@ export const QuizPanel = ({ quizData }: QuizPanelProps) => {
 
   const { results: questions } = quizData;
   const correctAnswer = questions[questionNum].correct_answer;
+
+  const history = useHistory();
 
   useEffect(() => {
     setOptions(
@@ -40,7 +43,9 @@ export const QuizPanel = ({ quizData }: QuizPanelProps) => {
     !isAnswered && setScore((prev) => prev + 1);
   };
 
-  const showScores = () => {};
+  const showScores = () => {
+    history.push(`/results/${score}/${questions.length}`);
+  };
 
   return (
     <div className="mx-auto w-10/12 flex flex-col mt-32 bg-gray-900 rounded py-6 px-10 text-white">
