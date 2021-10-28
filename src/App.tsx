@@ -1,6 +1,6 @@
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import { Topbar } from "./components/common";
-import { Home } from "./components/pages";
+import { Home, Quiz } from "./components/pages";
 
 function App() {
   return (
@@ -11,6 +11,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route path="/quiz/:category/:amount">
+              <Quiz />
             </Route>
           </Switch>
         </BrowserRouter>

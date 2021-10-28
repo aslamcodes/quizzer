@@ -1,5 +1,8 @@
-import React from "react";
-
+import { Categorizer } from "../common";
 export const Home = () => {
-  return <></>;
+  return (
+    <div className="mx-auto w-9/12 py-8">
+      <Categorizer />
+    </div>
+  );
 };
