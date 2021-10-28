@@ -25,15 +25,13 @@ export const QuizPanel = ({ quizData }: QuizPanelProps) => {
   const onSelectOption = (selectedOption: string) => {
     if (selectedOption === correctAnswer && !isAnswered) {
       setIsAnsweredCorrect(true);
-      increaseScore();
+      questionNum !== questions.length - 1 && increaseScore();
     }
     setIsAnswered(true);
-
-    console.log(isAnsweredCorrect, isAnswered, score);
   };
 
   const nextQuestion = () => {
-    setQuestionNum((prev) => (prev < questions?.length - 1 ? prev + 1 : prev));
+    questionNum !== questions.length - 1 && setQuestionNum((prev) => prev + 1);
     setIsAnswered(false);
     setIsAnsweredCorrect(false);
   };
@@ -41,6 +39,8 @@ export const QuizPanel = ({ quizData }: QuizPanelProps) => {
   const increaseScore = () => {
     !isAnswered && setScore((prev) => prev + 1);
   };
+
+  const showScores = () => {};
 
   return (
     <div className="mx-auto w-10/12 flex flex-col mt-32 bg-gray-900 rounded py-6 px-10 text-white">
@@ -62,7 +62,15 @@ export const QuizPanel = ({ quizData }: QuizPanelProps) => {
         ))}
       </div>
       <div className="text-right">
-        <Button onClick={nextQuestion}>Next</Button>
+        {questionNum !== questions.length - 1 ? (
+          <div>
+            <Button onClick={nextQuestion}>Next</Button>
+          </div>
+        ) : (
+          <div>
+            <Button onClick={showScores}>Show Scores</Button>
+          </div>
+        )}
       </div>
     </div>
   );
