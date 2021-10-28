@@ -1,0 +1,2 @@
+(this.webpackJsonpquizzer=this.webpackJsonpquizzer||[]).push([[0],{10:function(e,t,n){"use strict";n.r(t);var r=n(3),c=n.n(r),i=(n(8),n(0));var s=function(){return Object(i.jsx)("div",{})};c.a.render(Object(i.jsx)(s,{}),document.getElementById("root"))},8:function(e,t,n){}},[[10,1,2]]]);
+//# sourceMappingURL=main.f1ef6fa3.chunk.js.map
