@@ -9,6 +9,10 @@ export const QuizPanel = ({ quizData }: QuizPanelProps) => {
   const [options, setOptions] = useState<string[]>([]);
   const [isAnsweredCorrect, setIsAnsweredCorrect] = useState(false);
   const [isAnswered, setIsAnswered] = useState(false);
+  const [timeData, setTimeData] = useState<{
+    startTime: Date;
+    endTime: Date;
+  }>({ startTime: new Date(), endTime: new Date() });
   const [score, setScore] = useState(0);
 
   const { results: questions } = quizData;
@@ -17,6 +21,17 @@ export const QuizPanel = ({ quizData }: QuizPanelProps) => {
   const history = useHistory();
 
   useEffect(() => {
+    setTimeData((prev) => {
+      return { ...prev, startTime: new Date() };
+    });
+  }, []);
+
+  useEffect(() => {
+    if (questionNum === questions.length - 1) {
+      setTimeData((prev) => {
+        return { ...prev, endTime: new Date() };
+      });
+    }
     setOptions(
       shuffle([
         ...questions[questionNum]?.incorrect_answers,
@@ -44,7 +59,13 @@ export const QuizPanel = ({ quizData }: QuizPanelProps) => {
   };
 
   const showScores = () => {
-    history.push(`/results/${score}/${questions.length}`);
+    history.push(`/results/${score}/${questions.length}`, {
+      score,
+      noQuestions: questions.length,
+      percentage: ((score / questions.length) * 100).toFixed(2),
+      timeTaken:
+        (timeData.endTime?.getTime() - timeData.startTime?.getTime()) / 1000,
+    });
   };
 
   return (
@@ -69,7 +90,9 @@ export const QuizPanel = ({ quizData }: QuizPanelProps) => {
       <div className="text-right">
         {questionNum !== questions.length - 1 ? (
           <div>
-            <Button onClick={nextQuestion}>Next</Button>
+            <Button onClick={nextQuestion} disabled={!isAnswered}>
+              Next
+            </Button>
           </div>
         ) : (
           <div>
